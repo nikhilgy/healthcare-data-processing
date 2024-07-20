@@ -13,31 +13,31 @@ def create_pipeline(**kwargs) -> Pipeline:
             node(
                 func=clean_patients,
                 inputs=["patients", "patient_gender"],
-                outputs="cleaned_patients",
+                outputs="table_patients",
             ),
             
             node(
                 func=clean_conditions,
                 inputs="conditions",
-                outputs="cleaned_conditions",
+                outputs="table_conditions",
             ),
             
             node(
                 func=clean_medications,
                 inputs="medications",
-                outputs="cleaned_medications",
+                outputs="table_medications",
             ),
             
             node(
                 func=clean_encounters,
                 inputs="encounters",
-                outputs="cleaned_encounters",
+                outputs="table_encounters",
             ),
             
             node(
                 func=clean_symptoms,
                 inputs=["symptoms", "patient_gender"],
-                outputs="cleaned_symptoms",
+                outputs="table_symptoms",
             )
         ]
     )
