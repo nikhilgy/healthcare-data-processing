@@ -29,29 +29,59 @@ encounters:
   type: pandas.ParquetDataset
   filepath: data/01_raw/encounters.parquet
 
-cleaned_patients:
-  type: pandas.CSVDataset
-  filepath: data/02_intermediate/patients.csv
+# cleaned_patients:
+#   type: pandas.CSVDataset
+#   filepath: data/02_intermediate/patients.csv
 
-cleaned_conditions:
-  type: pandas.CSVDataset
-  filepath: data/02_intermediate/conditions.csv
+# cleaned_conditions:
+#   type: pandas.CSVDataset
+#   filepath: data/02_intermediate/conditions.csv
 
-cleaned_medications:
-  type: pandas.CSVDataset
-  filepath: data/02_intermediate/medications.csv
+# cleaned_medications:
+#   type: pandas.CSVDataset
+#   filepath: data/02_intermediate/medications.csv
 
-cleaned_encounters:
-  type: pandas.CSVDataset
-  filepath: data/02_intermediate/encounters.csv
+# cleaned_encounters:
+#   type: pandas.CSVDataset
+#   filepath: data/02_intermediate/encounters.csv
 
-cleaned_symptoms:
-  type: pandas.CSVDataset
-  filepath: data/02_intermediate/symptoms.csv
+# cleaned_symptoms:
+#   type: pandas.CSVDataset
+#   filepath: data/02_intermediate/symptoms.csv
 
 
-postgres_db:
+table_patients:
   type: pandas.SQLTableDataset
-  table_name: {table_name}
-  credentials: postgres_creds
+  table_name: patients
+  credentials: postgres
+  save_args:
+    if_exists: replace
+
+table_conditions:
+  type: pandas.SQLTableDataset
+  table_name: conditions
+  credentials: postgres
+  save_args:
+    if_exists: replace
+
+table_medications:
+  type: pandas.SQLTableDataset
+  table_name: medications
+  credentials: postgres
+  save_args:
+    if_exists: replace
+
+table_encounters:
+  type: pandas.SQLTableDataset
+  table_name: encounters
+  credentials: postgres
+  save_args:
+    if_exists: replace
+
+table_symptoms:
+  type: pandas.SQLTableDataset
+  table_name: symptoms
+  credentials: postgres
+  save_args:
+    if_exists: replace
 
