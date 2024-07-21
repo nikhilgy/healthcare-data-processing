@@ -48,6 +48,8 @@ def clean_medications(medications_df : pd.DataFrame) -> pd.DataFrame:
     # TODO add docstrings
     
     # TODO add lowercase & replace utility functions
+    
+    medications_df = medications_df.drop_duplicates(subset=['START', 'CODE'])
     medications_df['ENCOUNTER'] = medications_df['ENCOUNTER'].str.lower()
     medications_df['REASONCODE'] = medications_df['REASONCODE'].astype(str).str.replace('.0', '', regex=False)
     medications_df.columns = map(str.lower, medications_df.columns)
