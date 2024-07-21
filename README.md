@@ -73,7 +73,7 @@ This project has 3 pipelines stages:
     ```
     kedro run --pipeline data_cleaning
     ```
-2. **data_standardization** : Here we're structuring datasets and columns according to Tuva Project Data Model Input Layer all datasets: `patients, medications, observations, encounters, conditions` . To run data standardization, 
+2. **data_standardization** : Here we're structuring datasets and columns according to [Tuva Project Data Model Input Layer](https://thetuvaproject.com/connectors/input-layer) all datasets: `patients, medications, observations, encounters, conditions` . To run data standardization, 
     
     ```
     kedro run --pipeline data_standardization
