@@ -12,6 +12,10 @@ Take a look at the [Kedro documentation](https://docs.kedro.org) to get started.
 - Kedro
 - PostgreSQL
 
+### Datasets
+![image](https://github.com/user-attachments/assets/a8747059-fb33-495a-9edc-9abd3e095c41)
+
+
 ## How to setup development environment
 
 Clone the repo
