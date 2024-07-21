@@ -2,98 +2,89 @@
 
 ## Overview
 
-This is your new Kedro project with Kedro-Viz and PySpark setup, which was generated using `kedro 0.19.6`.
+This repo is for processing clinical data, ranging from unstructured CSV files to structured RedCap tables. The objective is to clean, organize, and transform this data to provide valuable insights. We will implement Kedro pipelines for data ingestion and processing, and dbt for data transformation and standardization.
 
 Take a look at the [Kedro documentation](https://docs.kedro.org) to get started.
 
-## Rules and guidelines
+### Tech Stack
 
-In order to get the best out of the template:
+- Python 3.11
+- Kedro
+- PostgreSQL
 
-* Don't remove any lines from the `.gitignore` file we provide
-* Make sure your results can be reproduced by following a [data engineering convention](https://docs.kedro.org/en/stable/faq/faq.html#what-is-data-engineering-convention)
-* Don't commit data to your repository
-* Don't commit any credentials or your local configuration to your repository. Keep all your credentials and local configuration in `conf/local/`
+## How to setup development environment
 
-## How to install dependencies
+Clone the repo
 
-Declare any dependencies in `requirements.txt` for `pip` installation.
+```
+git clone https://github.com/nikhilgy/healthcare-data-processing.git
+```
 
-To install them, run:
+Activate virtual environment
+```
+python -m venv venv
+source venv/Scripts/activate
+```
 
+Install dependencies mentioned in `requirements.txt`. To install them, run:
 ```
 pip install -r requirements.txt
 ```
 
+Setup database connection and add credentials
+
+1. For Kedro project, create credential.yml in `\conf\base\`
+
+```
+postgres:
+  con: postgresql+psycopg2://username:password@localhost/lupus_staging_raw
+```
+
+2. For dbt project, create profiles.yml in `\dbt\lupus_staging_tuva_model`. Refer [profiles.yml](https://docs.getdbt.com/docs/core/connect-data-platform/profiles.yml). Change host, database name,schema as per your requirements, I'm using localhost for practice.
+
+```
+lupus_staging_tuva_model:
+  outputs:
+    dev:
+      dbname: lupus_staging_raw
+      host: localhost
+      pass: <db_password>
+      port: 5432
+      schema: tuva_data_model
+      threads: 1
+      type: postgres
+      user: postgres
+  target: dev
+
+```
+
+You're ready to run Kedro pipelines now🎉
+
 ## How to run your Kedro pipeline
 
-You can run your Kedro project with:
+This project has 3 pipelines stages:
 
+1. **data_cleaning** : Here we're identifying data issues such as duplicates, noise in values, wrong formats, fixing them and loading into raw database for all datasets: `patients, medications, symptoms, patient_gender, encounters, conditions` . To run data cleaning, 
+    
+    ```
+    kedro run --pipeline data_cleaning
+    ```
+2. **data_standardization** : Here we're structuring datasets and columns according to Tuva Project Data Model Input Layer all datasets: `patients, medications, observations, encounters, conditions` . To run data standardization, 
+    
+    ```
+    kedro run --pipeline data_standardization
+    ```
+
+2. **data_merge** : Here we're merging all datasets `patients, medications, observations, encounters, conditions` into a patient master dataset for analytical purposes. To run data merge, 
+    
+    ```
+    kedro run --pipeline data_merge
+    ```
+
+We've successfully loaded data into database and created a denormalized master table to be used ahead.🎉💯 
+
+
+##### Pro tip: You can run kedro visualization for getting overview of all pipelines and kedro project
 ```
-kedro run
+kedro viz run
 ```
-
-## How to test your Kedro project
-
-Have a look at the files `src/tests/test_run.py` and `src/tests/pipelines/data_science/test_pipeline.py` for instructions on how to write your tests. Run the tests as follows:
-
-```
-pytest
-```
-
-To configure the coverage threshold, look at the `.coveragerc` file.
-
-## Project dependencies
-
-To see and update the dependency requirements for your project use `requirements.txt`. Install the project requirements with `pip install -r requirements.txt`.
-
-[Further information about project dependencies](https://docs.kedro.org/en/stable/kedro_project_setup/dependencies.html#project-specific-dependencies)
-
-## How to work with Kedro and notebooks
-
-> Note: Using `kedro jupyter` or `kedro ipython` to run your notebook provides these variables in scope: `catalog`, `context`, `pipelines` and `session`.
->
-> Jupyter, JupyterLab, and IPython are already included in the project requirements by default, so once you have run `pip install -r requirements.txt` you will not need to take any extra steps before you use them.
-
-### Jupyter
-To use Jupyter notebooks in your Kedro project, you need to install Jupyter:
-
-```
-pip install jupyter
-```
-
-After installing Jupyter, you can start a local notebook server:
-
-```
-kedro jupyter notebook
-```
-
-### JupyterLab
-To use JupyterLab, you need to install it:
-
-```
-pip install jupyterlab
-```
-
-You can also start JupyterLab:
-
-```
-kedro jupyter lab
-```
-
-### IPython
-And if you want to run an IPython session:
-
-```
-kedro ipython
-```
-
-### How to ignore notebook output cells in `git`
-To automatically strip out all output cell contents before committing to `git`, you can use tools like [`nbstripout`](https://github.com/kynan/nbstripout). For example, you can add a hook in `.git/config` with `nbstripout --install`. This will run `nbstripout` before anything is committed to `git`.
-
-> *Note:* Your output cells will be retained locally.
-
-## Package your Kedro project
-
-[Further information about building project documentation and packaging your project](https://docs.kedro.org/en/stable/tutorial/package_a_project.html)
-## healthcare-data-processing
