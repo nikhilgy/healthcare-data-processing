@@ -2,20 +2,160 @@
 version: 2
 
 models:
-  - name: my_first_dbt_model
-    description: "A starter dbt model"
+  - name: conditions
+    description: "Condition of patient in encounter, including diagnosis code and description"
     columns:
-      - name: id
-        description: "The primary key for this table"
-        data_tests:
-          - unique
-          - not_null
+      - name: patient_id
+        data_type: uuid
 
-  - name: my_second_dbt_model
-    description: "A starter dbt model"
+      - name: encounter_id
+        data_type: uuid
+
+      - name: onset_date
+        data_type: date
+
+      - name: resolved_date
+        data_type: date
+
+      - name: source_code
+        data_type: varchar
+
+      - name: source_description
+        data_type: varchar
+
+  - name: encounters
+    description: "Visit-level information, including visit description, diagnosis code, and cost"
     columns:
-      - name: id
-        description: "The primary key for this table"
-        data_tests:
-          - unique
-          - not_null
+      - name: encounter_id
+        data_type: uuid
+
+      - name: encounter_start_date
+        data_type: date
+      
+      - name: encounter_stop_date
+        data_type: date
+
+      - name: patient_id
+        data_type: uuid
+
+      - name: facility_id
+        data_type: uuid
+
+      - name: attending_provider_id
+        data_type: uuid
+
+      - name: encounter_type
+        data_type: varchar
+      
+      - name: admit_source_code
+        data_type: varchar
+        
+      - name: admit_source_description
+        data_type: varchar
+
+      - name: charge_amount
+        data_type: numeric(10,2)
+
+      - name: allowed_amount
+        data_type: numeric(10,2)
+      
+      - name: paid_amount
+        data_type: numeric(10,2)
+
+      - name: admit_type_code
+        data_type: varchar
+        
+      - name: admit_type_description
+        data_type: varchar 
+
+  - name: patients
+    description: "Patient demographics including birth date, name, race, ethnicity, gender, location, and income"
+    columns:
+    - name: patient_id
+      data_type: uuid 
+
+    - name: birth_date
+      data_type: date
+    
+    - name: death_date
+      data_type: date
+
+    - name: social_security_number
+      data_type: varchar
+    
+    - name: first_name
+      data_type: varchar
+    
+    - name: last_name
+      data_type: varchar
+
+    - name: sex
+      data_type: varchar
+
+    - name: race
+      data_type: varchar
+    
+    - name: address
+      data_type: varchar
+
+    - name: city
+      data_type: varchar
+
+    - name: state
+      data_type: varchar
+
+    - name: zip_code
+      data_type: varchar
+
+    - name: county
+      data_type: varchar
+    
+    - name: latitude
+      data_type: numeric(10,2)
+
+    - name: longitude
+      data_type: numeric(10,2)
+
+  - name: medications
+    description: "Medication information, including therapeutic code, description, reason, and cost"
+    columns:
+
+      - name: prescribing_date
+        data_type: date
+      
+      - name: patient_id
+        data_type: uuid
+
+      - name: encounter_id
+        data_type: uuid
+    
+      - name: ndc_code
+        data_type: varchar
+      
+      - name: ndc_description
+        data_type: varchar
+      
+      - name: source_code
+        data_type: varchar
+        
+      - name: source_description
+        data_type: varchar
+    
+  - name: observations
+    description: "Lab results, specifically symptoms taken for Lupus patients, such as Rash, Joint Pain, Fatigue, and Fever."
+    columns:
+
+      - name: patient_id
+        data_type: uuid
+
+      - name: rash
+        data_type: integer
+
+      - name: joint_pain
+        data_type: integer
+
+      - name: fatigue
+        data_type: integer
+
+      - name: fever
+        data_type: integer
