@@ -151,3 +151,15 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+
+# dbt profiles
+*profiles.yml
+
+
+*target/
+*dbt_packages/
+*logs/
+
+
+*.gitkeep

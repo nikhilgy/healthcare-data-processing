@@ -29,32 +29,12 @@ encounters:
   type: pandas.ParquetDataset
   filepath: data/01_raw/encounters.parquet
 
-# cleaned_patients:
-#   type: pandas.CSVDataset
-#   filepath: data/02_intermediate/patients.csv
-
-# cleaned_conditions:
-#   type: pandas.CSVDataset
-#   filepath: data/02_intermediate/conditions.csv
-
-# cleaned_medications:
-#   type: pandas.CSVDataset
-#   filepath: data/02_intermediate/medications.csv
-
-# cleaned_encounters:
-#   type: pandas.CSVDataset
-#   filepath: data/02_intermediate/encounters.csv
-
-# cleaned_symptoms:
-#   type: pandas.CSVDataset
-#   filepath: data/02_intermediate/symptoms.csv
-
-
 table_patients:
   type: pandas.SQLTableDataset
   table_name: patients
   credentials: postgres
   save_args:
+    schema: public
     if_exists: replace
 
 table_conditions:
@@ -62,6 +42,7 @@ table_conditions:
   table_name: conditions
   credentials: postgres
   save_args:
+    schema: public
     if_exists: replace
 
 table_medications:
@@ -69,6 +50,7 @@ table_medications:
   table_name: medications
   credentials: postgres
   save_args:
+    schema: public
     if_exists: replace
 
 table_encounters:
@@ -76,6 +58,7 @@ table_encounters:
   table_name: encounters
   credentials: postgres
   save_args:
+    schema: public
     if_exists: replace
 
 table_symptoms:
@@ -83,5 +66,6 @@ table_symptoms:
   table_name: symptoms
   credentials: postgres
   save_args:
+    schema: public
     if_exists: replace
 
