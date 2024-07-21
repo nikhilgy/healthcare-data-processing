@@ -2,7 +2,8 @@ version: 2
 
 sources:
   - name: lupus_staging_raw
-    database: lupus_staging_raw    
+    database: lupus_staging_raw  
+    schema: public  
     tables:
       - name: conditions
       - name: encounters

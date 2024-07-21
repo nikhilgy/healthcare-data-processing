@@ -7,7 +7,6 @@ select
     CAST(gender as varchar) as sex,
     CAST(race as varchar) as race,
     CAST(birthdate as date) as birth_date,
-    CAST(deathdate as date) as death_date,
     CAST(ssn as varchar) as social_security_number,
     CAST(address as varchar) as address,
     CAST(city as varchar) as city,

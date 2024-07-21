@@ -14,9 +14,6 @@ models:
       - name: onset_date
         data_type: date
 
-      - name: resolved_date
-        data_type: date
-
       - name: source_code
         data_type: varchar
 
@@ -75,9 +72,6 @@ models:
       data_type: uuid 
 
     - name: birth_date
-      data_type: date
-    
-    - name: death_date
       data_type: date
 
     - name: social_security_number
