@@ -3,6 +3,7 @@
 # Documentation for this file format can be found in "The Data Catalog"
 # Link: https://docs.kedro.org/en/stable/data/data_catalog.html
 
+####### Raw CSV Datasets #######
 patients:
   type: pandas.CSVDataset
   filepath: data/01_raw/patients.csv
@@ -28,6 +29,8 @@ conditions:
 encounters:
   type: pandas.ParquetDataset
   filepath: data/01_raw/encounters.parquet
+
+####### Staging cleaned tables #######
 
 table_patients:
   type: pandas.SQLTableDataset
@@ -69,3 +72,50 @@ table_symptoms:
     schema: public
     if_exists: replace
 
+####### Staging Tuva Data Model Tables #######
+
+staging_table_patients:
+  type: pandas.SQLTableDataset
+  table_name: patients
+  credentials: postgres
+  load_args:
+    schema: tuva_data_model
+
+staging_table_conditions:
+  type: pandas.SQLTableDataset
+  table_name: conditions
+  credentials: postgres
+  load_args:
+    schema: tuva_data_model
+
+staging_table_medications:
+  type: pandas.SQLTableDataset
+  table_name: medications
+  credentials: postgres
+  load_args:
+    schema: tuva_data_model
+
+staging_table_encounters:
+  type: pandas.SQLTableDataset
+  table_name: encounters
+  credentials: postgres
+  load_args:
+    schema: tuva_data_model
+
+staging_table_observations:
+  type: pandas.SQLTableDataset
+  table_name: observations
+  credentials: postgres
+  load_args:
+    schema: tuva_data_model
+
+
+###### Lupus Target Master Table ####### 
+
+patient_master_dataset:
+  type: pandas.SQLTableDataset
+  table_name: patient_master_dataset
+  credentials: postgres
+  save_args:
+    schema: lupus_central_repository
+    if_exists: replace
