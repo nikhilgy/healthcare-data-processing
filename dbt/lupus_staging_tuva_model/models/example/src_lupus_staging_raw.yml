@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: lupus_staging_raw
+    database: lupus_staging_raw    
+    tables:
+      - name: conditions
+      - name: encounters
+      - name: medications
+      - name: patients
+      - name: symptoms
